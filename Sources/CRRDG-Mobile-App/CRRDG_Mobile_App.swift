@@ -58,7 +58,8 @@ guard let playerTag = env("CR_TAG"), !playerTag.isEmpty else {
 }
 
 // MARK: - Build Clash Royale API request
-let encodedTag = playerTag.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? playerTag
+let encodedTag = playerTag.replacingOccurrences(of: "#", with: "%23")
+
 let urlString = "https://api.clashroyale.com/v1/players/\(encodedTag)"
 print("🌐 URL: \(urlString)")
 
@@ -88,16 +89,33 @@ let task = URLSession.shared.dataTask(with: request) { data, response, error in
         return
     }
 
-    guard (200...299).contains(httpResponse.statusCode) else {
-        print("❌ HTTP error: \(httpResponse.statusCode)")
-        return
+    
+
+    if !(200...299).contains(httpResponse.statusCode) {
+    print("❌ HTTP error: \(httpResponse.statusCode)")
+
+    if let data = data,
+       let body = String(data: data, encoding: .utf8) {
+        print("🌐 Server response body: \(body)")
+    } else {
+        print("⚠️ No error body received.")
     }
+
+    return
+}
+
+    
 
     guard let data = data else {
         print("❌ No data received")
         return
     }
 
+   if let body = String(data: data, encoding: .utf8) {
+    print("Server response: \(body)")
+}
+
+    
     // MARK: - Decode JSON
     do {
         if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
