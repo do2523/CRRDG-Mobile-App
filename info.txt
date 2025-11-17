@@ -1,0 +1,7 @@
+Get 'cards'
+{
+  "items": [
+    { "name": "knight", "id": 26000000 },
+    { "name": "elixer golem", "id": 26000057 }
+  ]
+}
