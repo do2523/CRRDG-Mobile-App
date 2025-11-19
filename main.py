@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import requests
 import psycopg2
 import os
+import random
 
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -77,8 +78,10 @@ except ValueError as exc:
 # print("Card Data: ")
 # print(card_data)
 
-all_card_names = [item["name"] for item in card_data["items"]]
-print(all_card_names)    
+
+all_card_names = [item["id"] for item in card_data["items"]]
+chosen_deck = random.sample(all_card_names, 8)
+print(f"https://link.clashroyale.com/en/?clashroyale://copyDeck?deck={chosen_deck[0]};{chosen_deck[1]};{chosen_deck[2]};{chosen_deck[3]};{chosen_deck[4]};{chosen_deck[5]};{chosen_deck[6]};{chosen_deck[7]}&l=Royals&slots=0;0;0;0;0;0;0;0&tt=159000000")    
 
 # #retrieve existing data
 # player_name = data.get("name")
