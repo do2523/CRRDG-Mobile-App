@@ -6,4 +6,4 @@ Get 'cards'
   ]
 }
 
-# Find information on swiftUI
+# Find information on mac mini
