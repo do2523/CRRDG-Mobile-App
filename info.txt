@@ -9,3 +9,4 @@ Get 'cards'
 # Find information on mac mini
 # Research Cloud Storage
 # Work on Figma design
+# Continue working on Figma Design
